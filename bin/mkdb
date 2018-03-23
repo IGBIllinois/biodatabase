@@ -2,12 +2,13 @@
 
 WHO=`whoami`
 SUFFIX=$1
+DB_LENGTH=50
 
 function usage {
         echo "Usage: `basename $0` SUFFIX "
         echo "Database name will be netid_SUFFIX"
         echo "SUFFIX can contain only lowercase letters and numbers"
-        echo "SUFFIX can only be up to 7 characters long"
+        echo "SUFFIX can only be up to ${DB_LENGTH} characters long"
         exit
 
 }
@@ -33,7 +34,7 @@ then
 	exit
 
 fi
-if [ ${#SUFFIX} -gt 7 ]
+if [ ${#SUFFIX} -gt ${DB_LENGTH} ]
 then
 	usage
 	exit
