@@ -1,0 +1,17 @@
+#!/bin/bash
+source ../conf/settings.conf
+
+WHO=`whoami`
+
+USERNAME=`echo $WHO | sed 's/-//g'`
+QUERY="SHOW DATABASES LIKE '$USERNAME\_%'"
+#QUERY="SELECT table_schema as 'Database', ROUND(SUM(data_length + index_length) / 1024 / 1024,2) as 'Size (MB)' FROM information_schema.TABLES WHERE table_schema LIKE '$USERNAME\_%' GROUP BY table_schema"
+RESULT=`mysql -u $MYSQL_USER --password=$MYSQL_PASS -h $MYSQL_HOST --port=$MYSQL_PORT -sNe "${QUERY}"`
+
+if [ ! -z "$RESULT" ] 
+then
+	echo "$RESULT"
+else 
+	echo "No Databases"
+fi
+

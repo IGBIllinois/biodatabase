@@ -1,0 +1,46 @@
+#!/bin/bash
+source ../conf/settings.conf
+
+DB=$1
+
+function usage {
+        echo "Usage: `basename $0` DATABASE "
+        echo "This will delete the database and corresponding user"
+	echo "DATABASE is the full name of the database, netid_SUFFIX"
+        exit
+
+}
+
+if [ $# -ne 1 ]
+then
+        usage
+	exit
+fi
+
+RESULT=`mysql -s -u $MYSQL_USER --port=$MYSQL_PORT -h $MYSQL_HOST --password=$MYSQL_PASS -e "DROP DATABASE $DB" >& /dev/null`
+
+if [ $? -eq 1 ]
+then
+        echo "Error: Database $DB does not exist"
+        exit
+fi
+
+RESULT=`mysql -s -u $MYSQL_USER --port=$MYSQL_PORT -h $MYSQL_HOST --password=$MYSQL_PASS -e "DROP USER '$DB'@'10.1.0.0/255.255.0.0'" >& /dev/null`
+
+if [ $? -eq 1 ]
+then
+	echo "Error: User $DB does not exist"
+	exit
+fi
+
+RESULT=`mysql -s -u $MYSQL_USER --port=$MYSQL_PORT -h $MYSQL_HOST --password=$MYSQL_PASS -e "DROP USER '$DB'@'127.0.0.1'" >& /dev/null`
+
+if [ $? -eq 1 ]
+then
+        echo "Error: User $DB does not exist"
+        exit
+fi
+
+echo "Database $DB was successfully delete"
+echo "User $DB was successfully delete"
+
