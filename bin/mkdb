@@ -1,5 +1,4 @@
 #!/bin/bash
-source ../conf/settings.conf
 
 WHO=`whoami`
 SUFFIX=$1
@@ -12,6 +11,15 @@ function usage {
         exit
 
 }
+
+if [ -e ../conf/settings.conf ]
+then
+        source ../conf/settings.conf
+else
+        echo "settings.conf does not exist"
+        exit
+fi
+
 
 if [ $# -ne 1 ]
 then

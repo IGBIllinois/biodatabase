@@ -1,13 +1,20 @@
 #!/bin/bash
-source ../conf/settings.conf
-
-
 function usage {
         echo "Usage: `basename $0` "
         echo "Lists the databases you have access to"
         exit
 
 }
+
+
+if [ -e ../conf/settings.conf ]
+then
+	source ../conf/settings.conf
+else
+	echo "settings.conf does not exist"
+	exit
+fi
+
 
 if [ $# -ne 1 ]
 then
