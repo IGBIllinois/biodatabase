@@ -1,6 +1,20 @@
 #!/bin/bash
 source ../conf/settings.conf
 
+
+function usage {
+        echo "Usage: `basename $0` "
+        echo "Lists the databases you have access to"
+        exit
+
+}
+
+if [ $# -ne 1 ]
+then
+        usage
+        exit
+fi
+
 WHO=`whoami`
 
 USERNAME=`echo $WHO | sed 's/-//g'`
