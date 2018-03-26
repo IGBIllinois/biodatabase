@@ -16,7 +16,7 @@ ROOTDIR=`dirname ${BINDIR}`
 
 if [ -e $ROOTDIR/conf/settings.conf ]
 then
-        source ../conf/settings.conf
+        source $ROOTDIR/conf/settings.conf
 else
         echo "settings.conf does not exist"
         exit
