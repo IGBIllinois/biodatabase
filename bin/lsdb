@@ -6,8 +6,11 @@ function usage {
 
 }
 
+BINDIR=`dirname ${BASH_SOURCE[0]}`
+ROOTDIR=`dirname ${BINDIR}`
 
-if [ -e ../conf/settings.conf ]
+
+if [ -e $ROOTDIR/conf/settings.conf ]
 then
 	source ../conf/settings.conf
 else
